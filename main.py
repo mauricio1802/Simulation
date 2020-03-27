@@ -5,6 +5,7 @@ from population import Population
 from processes import death, pregnat, born, match, break_couple, get_older
 import matplotlib.pyplot as plt
 import time
+from sys import argv
 
 DPM = 'death_per_month'
 BCPM = 'born_child_per_month'
@@ -54,37 +55,30 @@ class PopulationEvol:
             print(f"Actual population {self.population.count()} in month {self.env.now}")
         
 
+if __name__ == '__main__':
 
-s = PopulationEvol(100, 100, 100)
-x1 = [x[0] for x in s.stats[DPM]]
-y1 = [x[1] for x in s.stats[DPM]]
-x2 = [x[0] for x in s.stats[AP]]
-y2 = [x[1] for x in s.stats[AP]]
-acum = 0
-y3 = []
-for w in y1:
-    acum += w
-    y3.append(acum)
-x4 = [x[0] for x in s.stats[CP]]
-y4 = [x[1] for x in s.stats[CP]]  
-x5 = [x[0] for x in s.stats[BCPM]]
-y5 = [x[1] for x in s.stats[BCPM]]
-x6 = [x[0] for x in s.stats[PPM]]
-y6 = [x[1] for x in s.stats[PPM]]
-acum = 0
-y7 = []
-for w in y5:
-    acum+=w
-    y7.append(acum)
-plt.plot(x1, y1, x2, y2, x1, y3, x4, y4, x5, y5, x5, y7)
-# plt.plot(x5, y5, x4, y4)#, x5, y7)
-plt.legend(['death_per_month', 'alive_people', 'death_total', 'couples_per_month', 'born_per_month', 'total_born'])
-print(f"Duration: {s.duration}")
-# acum = 0
-# for x in y5:
-    # acum+=x
-# print(acum/len(y5))
-# print(y3[-1]/len(y3))
-
-# print(s.stats['death_per_month'])
-plt.show()
+    s = PopulationEvol(int(argv[1]), int(argv[2]), 100)
+    x1 = [x[0] for x in s.stats[DPM]]
+    y1 = [x[1] for x in s.stats[DPM]]
+    x2 = [x[0] for x in s.stats[AP]]
+    y2 = [x[1] for x in s.stats[AP]]
+    acum = 0
+    y3 = []
+    for w in y1:
+        acum += w
+        y3.append(acum)
+    x4 = [x[0] for x in s.stats[CP]]
+    y4 = [x[1] for x in s.stats[CP]]  
+    x5 = [x[0] for x in s.stats[BCPM]]
+    y5 = [x[1] for x in s.stats[BCPM]]
+    x6 = [x[0] for x in s.stats[PPM]]
+    y6 = [x[1] for x in s.stats[PPM]]
+    acum = 0
+    y7 = []
+    for w in y5:
+        acum+=w
+        y7.append(acum)
+    plt.plot(x1, y1, x2, y2, x1, y3, x4, y4, x5, y5, x5, y7)
+    plt.legend(['death_per_month', 'alive_people', 'death_total', 'couples_per_month', 'born_per_month', 'total_born'])
+    print(f"Duration: {s.duration}")
+    plt.show()

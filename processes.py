@@ -91,16 +91,11 @@ def match(env, pop, stats):
     man = [p for p in pop if p.get_sex() == MALE and p.get_civil_state() == SINGLE]
     woman = [p for p in pop if p.get_sex() == FEMALE and p.get_civil_state() == SINGLE and get_uniform() < want_partner_prob(p.get_years())]
     for m in man:
-        # if m.get_civil_state() != SINGLE:
-            # continue
         u = get_uniform()
         if u > want_partner_prob(m.get_years()):
             continue
         for w in woman:
             if w.get_civil_state() != SINGLE:
-                continue
-            u = get_uniform()
-            if u > want_partner_prob(w.get_years()):
                 continue
             u = get_uniform()
             if u < couple_prob(m.get_years(), w.get_years()):
