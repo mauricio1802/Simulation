@@ -1,0 +1,274 @@
+\documentclass[12pt]{article}
+
+%===================================================================================
+% Paquetes
+%----------------------------------------------------------
+\usepackage{textcomp}
+\usepackage[x11names,table]{color}
+% \topmargin=-2cm
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{listings} \lstset {language = Python, basicstyle=\bfseries\ttfamily, keywordstyle = \color{blue}, commentstyle = \bf\color{gray}}
+
+
+
+% \textheight=20cm
+% \textwidth=18cm
+% \oddsidemargin=-1cm
+
+\usepackage{xcolor}
+% \textheight=27cm
+
+% opening
+\title{Proyecto de Simulaci\'on}
+\author{Mauricio L. Perdomo Cort\'es.}
+% 
+% 
+\begin{document}
+\vspace{8.cm}
+
+\maketitle
+
+\begin{center}
+    Facultad de Matem\'atica y Computaci\'on\\\vspace{0.2cm} Universidad de La Habana
+\end{center}
+
+\clearpage
+
+% \tableofcontents
+\newpage
+
+\section{Orden del Problema}
+\centering
+\textsc{\textbf{Poblado en Evoluci\'on:}}\\\vspace{1.cm}
+
+Se dese conocer la evoluci\'on de la poblaci\'on de una determinada regi\'on.
+Se conoce que la probabilidad de fallecer de una persona distribuye uniforme
+y se corresponde, seg\'un su edad y sexo, con la siguiente tabla:
+
+\begin{table}[htbp]
+\begin{center}
+\begin{tabular}{c c c }
+
+Edad&Hombre&Mujer  \\
+0-12&0.25&0.25 		\\
+12-45& 0.1& 0.15  	\\
+45-76& 0.3& 0.35    \\
+76-125& 0.7& 0.65   \\
+\end{tabular}
+\end{center}
+\end{table}
+Del mismo modo, se conoce que la probabilidad de una mujer se embarace
+es uniforme y est\'a relacionada con la edad:
+\begin{table}[htbp]
+	\begin{center}
+		\begin{tabular}{c c }
+			
+			Edad&Probabilidad de Embarazarse \\
+			12-15 &0.2		\\
+			15-21 &0.45  	\\
+			21-35 &0.8   \\
+			35-45 &0.4  \\
+			45-60 &0.2  \\
+			60-125& 0.05  \\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+Para que una mujer quede embarazada debe tener pareja y no haber tenido
+el n\'umero m\'aximo de hijos que deseaba tener ella o su pareja en ese momento.
+El n\'umero de hijos que cada persona desea tener distribuye uniforme seg\'un la
+tabla siguiente :
+
+
+\begin{table}[htbp]
+	\begin{center}
+		\begin{tabular}{c c }
+			
+			N\'umero&Probabilidad \\
+			1 &0.6		\\
+			2 &0.75  	\\
+			3&0.35   \\
+			4&0.2  \\
+			5 &0.1  \\
+			m\'as de 5& 0.05  \\
+		\end{tabular}
+	\end{center}
+\end{table}
+\newpage
+Para que dos personas sean pareja deben estar solas en ese instante y deben
+desear tener pareja. El desear tener pareja est\'a relacionado con la edad:
+\begin{table}[htbp]
+	\begin{center}
+		\begin{tabular}{c c }
+			
+			Edad&Probabilidad de Querer Pareja \\
+			12-15 &0.6		\\
+			15-21 &0.65  	\\
+			21-35&0.8   \\
+			35-45&0.6  \\
+			45-60 &0.5  \\
+			60-125& 0.2  \\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+Si dos personas de diferente sexo est\'an solas y ambas desean querer tener
+parejas entonces la probabilidad de volverse pareja est\'a relacionada con la diferencia de edad:
+\begin{table}[htbp]
+	\begin{center}
+		\begin{tabular}{c c }
+			
+			Diferencia de Edad&Probabilidad de Establecer Pareja \\
+			0-5 &0.45		\\
+			5-10 &0.4 	\\
+			10-15&0.35   \\
+			15-20&0.25  \\
+			20 o m\'as &0.15  \\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+Cuando dos personas est\'an en pareja la probabilidad de que ocurra una ruptura distribuye uniforme y es de 0.2. Cuando una persona se separa, o enviuda,
+necesita estar sola p or un per\'iodo de tiempo que distribuye exponencial con un
+par\'ametro que est\'a relacionado con la edad:
+\begin{table}[htbp]
+	\begin{center}
+		\begin{tabular}{c c }
+			
+			Edad & $\lambda$ \\
+			12-15 & 3 meses		\\
+			15-21 & 6 meses 	\\
+			21-35&  6 meses  \\
+			35-45& 1 a\~nos  \\
+			45-60 &2 a\~nos  \\
+			60-125& 4 a\~nos
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\newpage
+Cuando est\'an dadas todas las condiciones y una mujer queda embarazada
+puede tener o no un embarazo m\'ultiple y esto distribuye uniforme acorde a las
+probabilidades siguientes:
+\begin{table}[htbp]
+	\begin{center}
+		\begin{tabular}{c c }
+			
+			N\'umero de Beb\'es & Probabilidad \\
+			1 & 0.7	\\
+			2 & 0.18 	\\
+			3&  0.08  \\
+			4& 0.04  \\
+			5&0.02  \\
+
+		\end{tabular}
+	\end{center}
+\end{table}
+
+La probabilidad del sexo de cada beb\'e nacido es uniforme 0,5.
+Asumiendo que se tiene una poblaci\'on inicial de M mujeres y H hombres y
+que cada poblador, en el instante incial, tiene una edad que distribuye uniforme
+(U(0,100)). Realice un pro ceso de simulaci\'on para determinar como evoluciona
+la poblaci\'on en un per\'io do de 100 a\~nos.
+
+\raggedright
+\section{Principales Ideas seguidas para la soluci\'on del problema.}
+
+Para realizar la simulaci\'on deseada definimos objetos y procesos que describen nuestro problema.
+En nuestra simulaci\'on la unidad b\'asica de tiempo es un mes, por lo que en cada mes de la simulaci\'on ejecutaremos
+los procesos definidos para que ejecuten los cambios necesarios en nuestros objetos. El programa consta de dos clases principales
+Person y Population, la primera engloba el estado de una persona de nuestro poblado (esta clase nunca es instanciada directamente sino a trav\'es de las clases Women y Man que heredan de ella), y la segunda contiene todas las personas que conforman
+nuestro "Poblado en Evoluci\'on". Durante cada mes de nuestra simulaci\'on ejecutaremos 6 procesos que efectuar\'an los cambios necesarios en nuestra poblaci\'on.
+Se profundizar\'a m\'as en cada uno de estos procesos en nuestra siguiente secci\'on.
+
+
+\section{Modelado del problema.}
+Para la modelaci\'on de nuestro problema creamos una clase llamada Person que engloba las caracter\'isticas consideradas relevantes para 
+nuestra simulaci\'on, tenemos tambi\'en una clase Population que contiene a todas las personas de nuestra poblaci\'on y nos permite acciones a\~nadir personas
+a nuestra poblaci\'on, saber la cantidad de personas vivas, iterar solo sobre los vivos de la poblaci\'on etc.
+\newline
+Uno de los conceptos principales en nuestra simulaci\'on son los procesos que definimos para efectuar cambios sobre nuestra poblaci\'on, estos
+procesos son: envenjecer, emparejar, morir, embarazar, dar a luz, romper parejas. A continuaci\'on analizamos cada uno de esos procesos.
+
+\begin{itemize}
+    \item Envejecer:
+    \newline
+    Este proceso se encarga de aumentar un mes en la edad de todas las personas vivas que pertenecen a la poblaci\'on
+    \item Emparejar:
+    \newline
+    Este proceso selecciona a todas las personas vivas que se encuentren solteras (esta busqueda excluye tambi\'en a las personas que est\'an recuper\'andose de una ruptura o est\'an de luto) y de estas comprueban cu\'ales desean tener parejas,
+    entre los que queden intenta emparejar hombre con mujeres teniendo en cuenta la diferencia de edad.
+    \item Morir:
+    \newline
+    Este procesos va por cada una de las personas vivas de la poblaci\'on decidiendo si la persona contin\'ua viva o no, en caso de que la persona muera y tenga pareja coloca a la pareja en estado de luto por un tiempo determinado por una variable aleatoria 
+    exponencial con un par\'ametro determinado por la edad de la persona.
+    \item Embarazar:
+    \newline
+    Este proceso recorre las mujeres vivas de la poblaci\'on comprobando cuales cumplen los requisitos para quedar embarazada (estos requisitos est\'an descritos en la orientaci\'on del problema),
+    despu\'es de seleccionar las candidatas a embarazarse por cada una genera una variable uniforme para decidir si queda embarazada o no.
+    \item Dar a luz:
+    \newline
+    Este proceso recorre las mujeres vivas de la poblaci\'on buscando mujeres que fueron embarazadas hace 9 o m\'as meses (nunca debe cumplirse la condici\'on de mayor estricto porque este proceso se realiza todos los meses por lo que en el mes 9 despues del embarazao siempre se comprobar\'a),
+    cada vez que una mujer embarazada hace 9 o m\'as meses es encontrada se define la cantidad de hijos que nacen y esta cantidad de personas es a\~nadida a la poblaci\'on, el sexo de los nuevos 
+    individuos es decidido en en m\'etodo add\_person de la clase Population usando una variable aleatoria uniforme. En este proceso tambi\'en se actualiza la cantidad de hijos de los padres ya que esta es necesaria,
+    para definir si una mujer puede quedar embarazada o no.
+    \item Romper parejas:
+    \newline
+    Este proceso recorre los hombre vivos de la poblaci\'on (solo los hombres porque toda pareja tiene un miembro hombre por lo que recorriendo los hombre aseguramos analizar todas las parejas) que tengan pareja y decide si la relaci\'on termina o no,
+     en caso de que la relaci\'on termine coloca a ambos miembros de la pareja en estado de recuperaci\'on por un tiempo determinado por una variable aleatoria exponencial con un par\'ametro definido por la edad de cada uno de ellos.
+    
+\end{itemize}
+
+Despu\'es de analizar los procesos que ocurren en nuestra simulaci\'on estamos en condiciones de analizar un pseudoc\'odigo de nuestro loop principal.
+
+\begin{lstlisting}
+#Lista de procesos
+procesos = [embarazar, morir, dar_a_luz, romper_parejas, emparejar]
+
+while True:
+        # Aumentamos un mes en la edad de todas
+        # las personas vivas
+        envejecer()
+
+        # Creamos una copia de la lista de procesos
+        pro = [p for p in procesos]
+
+        # Vamos seleccionando los procesos en orden aleatorio
+        # y los vamos ejecutando
+        while len(pro) > 0:
+            index = random(0, len(pro)-1)
+            pro.pop(index)()
+
+        # Avanzamos un mes
+        avanzar
+            
+\end{lstlisting}
+
+
+\section{Consideraciones obtenidas a partir de  la ejecuci\'on de las simulaciones:}
+Luego de realizar distintas simulaciones con la orientaci\'on incial se pueden realizar distintas observaciones:
+\begin{itemize}
+    \item Teniendo en cuenta que el proceso de Morir es ejecutado todos los meses las probabilidades de fallecer propuestas en la orden del ejercicio son muy altas
+    lo que provocaba que en la simulaci\'on la poblaci\'on muriera muy r\'apido, para solucionar esto se decidi\'o cambiar estas probabilidades de la siguiente forma: si la probabilidad del intervalo $X - Y$ es $Z$ 
+    la nueva probabilidad ser\'a $Z / (abs(Y - X) * 12)$. Esto fue decidido teniendo en cuenta que todos los meses se efectuar\'a esta comprobaci\'on y la probabilidad de morir en el intervalo ser\'a la suma de las probabilidades de morir en cada mes.
+    
+    \item Realizando un an\'alisis parecido al anterior realizamos un cambio parecido con la probabilidad de una mujer de quedar embarazada debido a que la poblaci\'on crec\'ia demasiado r\'apido por la cantidad de beb\'es que nac\'ian.
+    
+    \item En la orden se orientaba que el tiempo que una persona necesitaba para recuperarse de una ruptura o del luto era una variable aleatoria exponencial de par\'ametro lambda donde se nos daba el par\'ametro para cada edad, pero usando estos par\'ametros
+    los valores esperados eran hasta menores que un mes y disminu\'ian con el aumento de la edad, esto no vimos que fuera consecuente con el comportamiento real y decidimos tomar el valor que se nos daba como valor esperado por tanto lambda ser\'a $1/V$ done $V$ es el valor ofrecido 
+    en la orientaci\'on para cada intervalo de edad.
+
+    \item En la tabla que daba las probabildades para definir cu\'antos ni\~nos van a nacer se realiz\'o un cambio para que las probabilidades sumaran 1.
+    
+    \item La poblaci\'on crece de manera general, el crecimiento m\'as r\'apido se ve cuando las cantidades iniciales de hombres y mujeres son cercanas.
+\end{itemize}
+
+\section{GitHub link al c\'odigo del proyecto}
+
+\end{document}
